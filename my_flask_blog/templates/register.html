@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+      <div id="content">
+        <!-- insert the page content here -->
+        <h1>Регистрация</h1>
+        <form action="" method="post">
+          {{ form.hidden_tag() }}
+          <div class="form_settings">
+
+            <p><span>Имя пользователя</span><input class="contact" type="text" name="username" value="" />
+            {% if form.username.errors %}
+              {% for error in form.username.errors %}
+              <p style="color: red">{{ error }}</p>
+              {% endfor %}
+            {% endif %}
+            </p>
+
+            <p><span>Email</span><input class="contact" type="text" name="email" value="" />
+              {% if form.email.errors %}
+                  {% for error in form.email.errors %}
+                  <p style="color: red">{{ error }}</p>
+                  {% endfor %}
+              {% endif %}
+            </p>
+
+            <p><span>Пароль</span><input class="contact" type="password" name="password" value="" />
+              {% if form.password.errors %}
+                {% for error in form.password.errors %}
+                <p style="color: red">{{ error }}</p>
+                {% endfor %}
+              {% endif %}
+            </p>
+
+
+            <p><span>Подтвердить пароль</span><input class="contact" type="password" name="confirm_password" value="" />
+              {% if form.confirm_password.errors %}
+                {% for error in form.confirm_password.errors %}
+                <p style="color: red">{{ error }}</p>
+                {% endfor %}
+              {% endif %}
+            </p>
+
+
+            <p style="padding-top: 15px"><span>&nbsp;</span><input class="submit" type="submit" name="submit" value="Зарегистрироваться" /></p>
+          </div>
+        </form>
+      </div>
+
+{% endblock %}

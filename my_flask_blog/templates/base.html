@@ -1,0 +1,106 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    {% if title %}
+        <title>Блог - {{ title }}</title>
+    {% else %}
+        <title>Блог</title>
+    {% endif %}
+  <meta name="description" content="website description" />
+  <meta name="keywords" content="website keywords, website keywords" />
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style/style.css') }}" />
+  {% block style %} {% endblock style %}
+</head>
+
+<body>
+  <div id="main">
+    <div id="header">
+      <div id="logo">
+        <div id="logo_text">
+          <!-- class="logo_colour", allows you to change the colour of the text -->
+          <h1><a href="{{ url_for('main.home') }}">Еще один<span class="logo_colour">&ensp;блог</span></a></h1>
+          <h2>Написан на фреймворке Flask</h2>
+        </div>
+      </div>
+      <div id="menubar">
+        <ul id="menu">
+          <!-- put class="selected" in the li tag for the selected page - to highlight which page you're on -->
+          <li class="selected"><a href="{{ url_for('main.home') }}">Home</a></li>
+<!--          <li><a href="examples.html">Examples</a></li>-->
+<!--          <li><a href="page.html">A Page</a></li>-->
+<!--          <li><a href="contact.html">Contact Us</a></li>-->
+          {% if current_user.is_authenticated %}
+          <li><a href="{{ url_for('posts.allpost') }}">Посты</a></li>
+          <li><a href="{{ url_for('posts.new_post') }}">Создать пост</a></li>
+          <li><a href="{{ url_for('users.account') }}">Профиль {{ current_user.username }}</a></li>
+          <li><a href="{{ url_for('users.logout') }}">Выйти</a></li>
+          {% for role in  current_user.roles%}
+          {% if role == 'admin' %}
+          <li><a href="{{ url_for('admin.index') }}">Админка</a></li>
+          {% endif %}
+          {% endfor %}
+
+          {% else %}
+          <li><a href="{{ url_for('users.login') }}">Войти</a></li>
+          <li><a href="{{ url_for('users.register') }}">Зарегистрироваться</a></li>
+          {% endif %}
+        </ul>
+      </div>
+    </div>
+    <div id="content_header"></div>
+    <div id="site_content">
+      <div class="sidebar">
+        <!-- insert your sidebar items here -->
+        <h3>Latest News</h3>
+        <h4>New Website Launched</h4>
+        <h5>January 1st, 2011</h5>
+        <p>2011 sees the redesign of our website. Take a look around and let us know what you think.<br /><a href="#">Read more</a></p>
+        <p></p>
+        <h4>New Website Launched</h4>
+        <h5>January 1st, 2011</h5>
+        <p>2011 sees the redesign of our website. Take a look around and let us know what you think.<br /><a href="#">Read more</a></p>
+        <h3>Useful Links</h3>
+        <ul>
+          <li><a href="#">link 1</a></li>
+          <li><a href="#">link 2</a></li>
+          <li><a href="#">link 3</a></li>
+          <li><a href="#">link 4</a></li>
+        </ul>
+        <h3>Search</h3>
+        <form method="post" action="#" id="search_form">
+          <p>
+            <input class="search" type="text" name="search_field" value="Enter keywords....." />
+            <input name="search" type="image" style="border: 0; margin: 0 0 -9px 5px;" src="../static/style/search.png" alt="Search" title="Search" />
+          </p>
+        </form>
+      </div>
+
+
+      <main role="main" class="container">
+        <div>
+<!--          <div>-->
+            {% with messages = get_flashed_messages(with_categories=true) %}
+              {% if messages %}
+                {% for category, message in messages %}
+                  <div style="width: 500px; color: #00C5EE; padding: 15px; font-size: 20px;" class="alert alert-{{ category }}">
+                    {{ message }}
+                  </div>
+                {% endfor %}
+              {% endif %}
+            {% endwith %}
+<!--                </div>-->
+        </div>
+      </main>
+
+            {% block content %}{% endblock %}
+
+    </div>
+    <div id="content_footer"></div>
+    <div id="footer">
+      <p><a href="{{ url_for('main.home') }}">Home</a></p>
+    </div>
+  </div>
+</body>
+</html>

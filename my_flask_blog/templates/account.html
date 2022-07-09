@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+
+      <div class="media">
+          <img src="{{ image_file }}">
+          <h2>{{ current_user.username }}</h2>
+          <p>{{ current_user.email }}</p>
+      </div>
+
+        <div id="content">
+        <!-- insert the page content here -->
+        <h1>Аккаунт пользователя</h1>
+        <form action="" method="post" enctype="multipart/form-data">
+          {{ form.hidden_tag() }}
+          <div class="form_settings">
+
+            <p><span>Имя пользователя</span><input class="contact" type="text" name="username" value="{{ current_user.username }}" />
+            {% if form.username.errors %}
+              {% for error in form.username.errors %}
+              <p style="color: red">{{ error }}</p>
+              {% endfor %}
+            {% endif %}
+            </p>
+
+            <p><span>Email</span><input class="contact" type="text" name="email" value="{{ current_user.email }}" />
+              {% if form.email.errors %}
+                  {% for error in form.email.errors %}
+                  <p style="color: red">{{ error }}</p>
+                  {% endfor %}
+              {% endif %}
+            </p>
+
+              <p>
+                  <span>{{ form.picture.label() }}</span>
+                  {{ form.picture(class="form-control-file") }}
+                  {% if form.picture.errors %}
+                      {% for error in form.picture.errors %}
+                          <span>{{ error }}</span></br>
+                      {% endfor %}
+                  {% endif %}
+              </p>
+
+            <p style="padding-top: 15px"><span>&nbsp;</span><input class="submit" type="submit" name="submit" value="Обновить" /></p>
+          </div>
+        </form>
+      </div>
+
+{% endblock %}
