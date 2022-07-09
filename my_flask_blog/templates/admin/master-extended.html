@@ -1,4 +1,9 @@
 {% extends 'admin/base.html' %}
+{% block head_tail %}
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"> </script>
+    {% endblock %}
+
 {% block access_control %}
 
 {% if current_user.is_authenticated %}
